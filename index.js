@@ -10,6 +10,10 @@ app.use(cors());
 
 app.use("/api", userRoutes);
 
+app.get("/", (req, res) => {
+  res.send("Server is running");
+});
+
 // Start server
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);

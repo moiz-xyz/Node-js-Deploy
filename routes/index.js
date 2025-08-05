@@ -21,6 +21,7 @@ const users = [
 ]
 
 router.get("/", (req, res) => {
+   console.log("POST /api hit with body:");
   res.send("API is running");
 });
 
