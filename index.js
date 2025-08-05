@@ -1,7 +1,6 @@
-
 import express from "express";
 import cors from "cors";
-import router from "./routes/index.js";
+import userRoutes from "./routes/index.js";
 import path from "path";
 import { fileURLToPath } from "url";
 
@@ -9,20 +8,24 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
-
-app.use(express.static(path.join(__dirname, "./web/dist")))
-
 const PORT = 4000;
 
-app.use(express.json())
+// Middlewares
+app.use(express.json());
 app.use(cors());
 
-app.use("/api", router)
+// 🔥 Register API before static frontend
+app.use("/api", userRoutes);
 
-app.get("/", (req, res) => {
-  res.send("Server is running");
+// Serve frontend build (after API)
+app.use(express.static(path.join(__dirname, "./web/dist")));
+
+// Fallback to index.html for SPA
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "./web/dist/index.html"));
 });
 
+// Start server
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
