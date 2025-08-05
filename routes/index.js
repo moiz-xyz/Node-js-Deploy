@@ -20,13 +20,12 @@ const users = [
     },
 ]
 
-router.get("/", (req, res) => {
-   console.log("POST /api hit with body:");
-  res.send("API is running");
-});
+
+app.get("/", (req , res)=>{
+res.send(users)
+})
 
 router.post("/", (req, res) => {
-   console.log("POST /api hit with body:", req.body);
   const newUser = { id: users.length + 1, ...req.body };
   users.push(newUser);
   res.send({ message: "User added successfully", user: newUser });
