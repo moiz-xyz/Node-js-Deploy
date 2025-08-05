@@ -10,9 +10,9 @@ app.use(cors());
 
 app.use("/api", userRoutes);
 
-app.get("/", (req, res) => {
-  res.send("Server is running");
-});
+app.get("/", (req , res)=>{
+res.send(users)
+})
 
 // Start server
 app.listen(PORT, () => {
